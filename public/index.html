@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14532d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Golf Swing Coach</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="flag">⛳</div>
+  <h1>Golf Swing Coach</h1>
+  <p>Two quick videos. One honest coaching report.</p>
+</header>
+
+<main>
+  <div id="notConfigured" class="banner warn" hidden>
+    <strong>Not configured yet.</strong> The coach doesn't have its AI key set up, so analysis is unavailable right now. You can still look around — please check back soon.
+  </div>
+
+  <form id="form" novalidate>
+    <section class="card">
+      <h2><span class="step">1</span> What's your main problem?</h2>
+      <div class="chips" role="radiogroup">
+        <label class="chip"><input type="radio" name="problem" value="slice"><span>🍌 Slice</span></label>
+        <label class="chip"><input type="radio" name="problem" value="hook"><span>↩️ Hook</span></label>
+        <label class="chip"><input type="radio" name="problem" value="topping"><span>⬆️ Topping / thinning</span></label>
+        <label class="chip"><input type="radio" name="problem" value="fat"><span>🟫 Fat shots</span></label>
+        <label class="chip"><input type="radio" name="problem" value="distance"><span>📏 Lack of distance</span></label>
+        <label class="chip"><input type="radio" name="problem" value="other"><span>🤔 Not sure / other</span></label>
+      </div>
+      <textarea id="otherText" name="otherText" maxlength="500" rows="3" placeholder="Describe what's going wrong (e.g. 'shanks with irons', 'pull-hooks off the tee')…" hidden></textarea>
+    </section>
+
+    <section class="card">
+      <h2><span class="step">2</span> Film your swing</h2>
+      <p class="hint">Phone at hip height, ~3 m away, whole body and club in frame. Landscape or portrait is fine. Keep clips short (5–15 s).</p>
+
+      <div class="angle" data-field="faceOn">
+        <div class="angle-head">
+          <svg viewBox="0 0 64 64" class="angle-ico" aria-hidden="true"><circle cx="32" cy="14" r="6"/><path d="M32 20v20M32 40l-8 16M32 40l8 16M32 26l-10 10M32 26l10 10"/><rect x="2" y="26" width="10" height="8" rx="2" class="cam"/></svg>
+          <div><h3>Angle 1 · Face-on</h3><small>Camera facing your chest, level with your hands.</small></div>
+        </div>
+        <video class="preview" playsinline muted controls hidden></video>
+        <div class="file-name" hidden></div>
+        <div class="btns">
+          <label class="btn secondary">🎥 Record<input type="file" accept="video/*" capture="environment" hidden></label>
+          <label class="btn secondary">📁 Choose video<input type="file" accept="video/mp4,video/quicktime,video/webm,video/*,.mp4,.mov,.webm" hidden></label>
+        </div>
+      </div>
+
+      <div class="angle" data-field="downTheLine">
+        <div class="angle-head">
+          <svg viewBox="0 0 64 64" class="angle-ico" aria-hidden="true"><circle cx="32" cy="14" r="6"/><path d="M32 20l-4 20M28 40l-6 16M28 40l6 16M30 26l14 14"/><path d="M44 40l6 16" class="line"/><rect x="27" y="56" width="10" height="6" rx="2" class="cam"/></svg>
+          <div><h3>Angle 2 · Down-the-line</h3><small>Camera behind you, pointing at the target, hands height.</small></div>
+        </div>
+        <video class="preview" playsinline muted controls hidden></video>
+        <div class="file-name" hidden></div>
+        <div class="btns">
+          <label class="btn secondary">🎥 Record<input type="file" accept="video/*" capture="environment" hidden></label>
+          <label class="btn secondary">📁 Choose video<input type="file" accept="video/mp4,video/quicktime,video/webm,video/*,.mp4,.mov,.webm" hidden></label>
+        </div>
+      </div>
+    </section>
+
+    <div id="formError" class="banner error" hidden></div>
+    <button id="submit" type="submit" class="btn primary big">Analyse my swing ⛳</button>
+    <p class="fine">Videos are deleted from our server and the AI service right after analysis.</p>
+  </form>
+
+  <section id="progress" class="card center" hidden>
+    <div class="ball-anim"><div class="ball"></div><div class="hole"></div></div>
+    <h2 id="stage">Uploading…</h2>
+    <div class="bar"><div id="barFill"></div></div>
+    <p class="hint" id="progressHint">This usually takes 30–90 seconds. Keep this page open.</p>
+  </section>
+
+  <section id="result" hidden>
+    <div class="card report" id="report"></div>
+    <p class="fine" id="modelNote"></p>
+    <button id="again" class="btn primary big">Analyse another swing</button>
+  </section>
+</main>
+<footer>Built for golfers 🏌️ · AI feedback is guidance, not a substitute for a lesson.</footer>
+<script src="app.js"></script>
+</body>
+</html>
